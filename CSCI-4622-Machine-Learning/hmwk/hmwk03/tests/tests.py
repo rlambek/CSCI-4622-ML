@@ -10,7 +10,7 @@ class TestLogReg(unittest.TestCase):
 
     def setUp(self):
         self.X_train = np.array([[1,2,1], [1,1,5], [1,2,5], [1,3,5], [1,1,6], [1,2,6], [1,5,1], [1,6,1], [1,7,1], [1,6,2], [1,7,2], [1,5,5]], dtype=float)
-        self.y_train =  np.array([1 if ii < 6 else 0 for ii in range(X.shape[0])], dtype=float)
+        self.y_train =  np.array([1 if ii < 6 else 0 for ii in range(self.X_train.shape[0])], dtype=float)
 
     def testPosUnregUpdate(self): 
         """
@@ -19,9 +19,9 @@ class TestLogReg(unittest.TestCase):
         unreg_pos = LogReg(np.array([self.X_train[2,:].copy()]), np.array([self.y_train[2]]))
         unreg_pos.beta = np.ones_like(unreg_pos.beta)
         unreg_pos.train(eta=0.1, lam=0.0, num_epochs=1)
-        self.assertAlmostEqual(unreg_pos.beta[0], 1.0000670700260932)
-        self.assertAlmostEqual(unreg_pos.beta[1], 1.0001341400521866)
-        self.assertAlmostEqual(unreg_pos.beta[2], 1.0003353501304664)
+        self.assertAlmostEqual(unreg_pos.beta[0], 1.0000335350130467)
+        self.assertAlmostEqual(unreg_pos.beta[1], 1.0000670700260932)
+        self.assertAlmostEqual(unreg_pos.beta[2], 1.0001676750652333)
 
     def testNegUnregUpdate(self): 
         """
@@ -30,9 +30,9 @@ class TestLogReg(unittest.TestCase):
         unreg_neg = LogReg(np.array([self.X_train[9,:].copy()]), np.array([self.y_train[9]]))
         unreg_neg.beta = np.ones_like(unreg_neg.beta)
         unreg_neg.train(eta=0.2, lam=0.0, num_epochs=1)
-        self.assertAlmostEqual(unreg_neg.beta[0],  0.60004935783039448)
-        self.assertAlmostEqual(unreg_neg.beta[1], -1.3997038530176331)
-        self.assertAlmostEqual(unreg_neg.beta[2],  0.20009871566078896)
+        self.assertAlmostEqual(unreg_neg.beta[0],  0.80002467891519724)
+        self.assertAlmostEqual(unreg_neg.beta[1], -0.19985192650881656)
+        self.assertAlmostEqual(unreg_neg.beta[2],  0.60004935783039448)
 
     def testShuffelUnregUpdate(self): 
         """
@@ -53,9 +53,9 @@ class TestLogReg(unittest.TestCase):
         reg_pos = LogReg(np.array([self.X_train[2,:].copy()]), np.array([self.y_train[2]]))
         reg_pos.beta = np.ones_like(reg_pos.beta)
         reg_pos.train(eta=0.1, lam=0.1, num_epochs=1)
-        self.assertAlmostEqual(reg_pos.beta[0], 1.0000670700260932)
-        self.assertAlmostEqual(reg_pos.beta[1], 0.98013414005218658)
-        self.assertAlmostEqual(reg_pos.beta[2], 0.98033535013046635)
+        self.assertAlmostEqual(reg_pos.beta[0], 1.0000335350130467)
+        self.assertAlmostEqual(reg_pos.beta[1], 0.98006707002609317)
+        self.assertAlmostEqual(reg_pos.beta[2], 0.98016767506523328)
 
     def testNegRegUpdate(self): 
         """
@@ -64,9 +64,9 @@ class TestLogReg(unittest.TestCase):
         reg_neg = LogReg(np.array([self.X_train[9,:].copy()]), np.array([self.y_train[9]]))
         reg_neg.beta = np.ones_like(reg_neg.beta)
         reg_neg.train(eta=0.2, lam=0.1, num_epochs=1)
-        self.assertAlmostEqual(reg_neg.beta[0],  0.60004935783039448)
-        self.assertAlmostEqual(reg_neg.beta[1], -1.4397038530176332)
-        self.assertAlmostEqual(reg_neg.beta[2],  0.16009871566078895)
+        self.assertAlmostEqual(reg_neg.beta[0],  0.80002467891519724)
+        self.assertAlmostEqual(reg_neg.beta[1], -0.23985192650881657)
+        self.assertAlmostEqual(reg_neg.beta[2],  0.56004935783039445)
 
     def testPredict(self):
         lr = LogReg(self.X_train, self.y_train)
