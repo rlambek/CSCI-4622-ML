@@ -92,7 +92,7 @@ class TestRegressionData(unittest.TestCase):
 
 # print("Testing Part A ...")
 partA = unittest.TestSuite()
-for test in ["test_split", "test_shuffle"]:
+for test in ["test_split","test_shuffle"]: #,"test_shuffle"
     partA.addTest(TestRegressionData(test))
 runner = unittest.TextTestRunner(verbosity=1).run(partA)
 
